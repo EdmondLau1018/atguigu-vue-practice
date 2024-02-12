@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue01</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <h1>Hello, {{message.toUpperCase()}} !!!</h1> <br>
+    <button>点击更换信内容</button>
+</div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',  // el 用于指定当前 vue实例对象为哪个容器服务
+        data: {
+            //  数据供 el 指定的容器所使用 （古希腊掌管容器数据的神） 在组件的时候通常使用函数
+            message: 'the fucking world'
+        },
+    });
+</script>
+</html>
