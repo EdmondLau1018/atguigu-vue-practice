@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<style type="text/css">
+    * {
+        margin-top: 20px;
+        padding-top: 10px;
+    }
+</style>
+<body>
+<div id="root">
+    姓：<input type="text" v-model="firstName"> <br><br>
+    名：<input type="text" v-model="lastName"> <br><br>
+    全名：<span>{{fullName}}</span>
+</div>
+</body>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            firstName: '张',
+            lastName: '三'
+        },
+        methods: {},
+        computed: {
+            //  使用计算属性的简写默认不使用 set 方法
+            //  这个计算属性对象可以简写成一个函数 其实就是写的就是这个对象的 getter
+            fullName() {
+                return this.firstName + '-' + this.lastName;
+            }
+        }
+    });
+</script>
+</html>
+
+
