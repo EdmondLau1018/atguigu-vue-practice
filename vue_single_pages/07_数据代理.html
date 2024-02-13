@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="root">
+</div>
+</body>
+<script type="text/javascript">
+    let age = 78;
+    let person = {
+        name: '张三',
+        gender: 'male',
+    };
+    //  使用 defineProperty 方法 新增数据属性
+    Object.defineProperty(person, 'age', {
+        // value: 18,
+        // enumerable:true,        //  通过 defineProperty 方法新增的属性可遍历
+        // writable: true,         //  通过 defineProperty 方法新增的属性可修改
+        // configurable: true,       //  通过 defineProperty 方法新增的属性可配置删除
+
+        // defineProperty 方法提供与 Java的对象 相同的 getter 和 setter  方法
+        get: function () {
+            console.log('程序读取当前对象的age属性');
+            return age;
+        },
+        set(value) {
+            console.log('程序对age属性进行设置');
+            age = value;
+        }
+    });
+
+    console.log(person);
+    // 遍历 person 所有属性
+    let keys = Object.keys(person);
+    console.log('所有属性：', keys);
+
+</script>
+</html>
+
+
