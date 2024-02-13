@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<style type="text/css">
+</style>
+<body>
+<div id="root">
+    <h2>今天的天气很{{weather}}</h2>
+    <button @click="isHot = !isHot">点击改变今日天气</button>
+</div>
+</body>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            isHot: true
+        },
+        methods: {},
+        computed: {
+        },
+        // watch: {
+        //     isHot: {
+        //         handler(newValue,oldValue){
+        //             console.log('isHot','变化前的值：', oldValue, '变化后的值：', newValue);
+        //         }
+        //     },
+        //     weather: {
+        //         handler(newValue, oldValue) {
+        //             console.log('weather','变化前的值：', oldValue, '变化后的值：', newValue);
+        //         }
+        //     }
+        // }
+    });
+    vm.$watch('weather', {
+        immediate: true,
+        handler(newValue,oldValue){
+            console.log('weather','变化前的值：', oldValue, '变化后的值：', newValue);
+        }
+    });
+</script>
+</html>
+
+
