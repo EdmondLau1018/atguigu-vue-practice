@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<style type="text/css">
+    * {
+        margin-top: 20px;
+        padding-top: 10px;
+    }
+</style>
+<body>
+<div id="root">
+    <div>
+        <div></div>
+    </div>
+    <input type="text" @keydown.ctrl.y="showContentCustom" v-model="content">
+</div>
+</body>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            content: ''
+        },
+        methods: {
+            showInfo(e) {
+                console.log('显示事件信息', e);
+                console.log('键盘按键名称：', e.key, '键盘按键编码：', e.keyCode);
+            },
+            showContentPrimary(e) {
+                //  按下回车显示数据 原生写法 通过keyCode 进行判断
+                if (e.keyCode != 13) return;
+                console.log('显示数据：', this.content);
+            },
+            //  使用事件修饰符修饰键盘事件
+            showContentVue() {
+                console.log(this.content);
+            },
+            // 需求 按下 ctrl + y 才显示input 中的文本内容
+            showContentCustom() {
+                console.log('调用csutom方法：',this.content);
+            }
+        }
+    });
+</script>
+</html>
+
+
