@@ -32,6 +32,10 @@
             }
         }
     });
+    vm.$watch('weather',(newVal,oldVal) => {
+        //  监视属性简写可以写成箭头函数的形式 （但是注意是简写）
+        console.log('计算属性 weather 的值发生了变化', '之前的值为：', oldVal, '变化后的值为：', newVal);
+    })
 </script>
 </html>
 

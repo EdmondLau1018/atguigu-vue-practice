@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<style type="text/css">
+    * {
+        margin-top: 20px;
+        padding-top: 10px;
+    }
+</style>
+<body>
+<div id="root">
+    姓：<input type="text" v-model="firstName"> <br><br>
+    名：<input type="text" v-model="lastName"> <br><br>
+    全名：<span>{{fullName}}</span>
+</div>
+</body>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            firstName: '张',
+            lastName: '三',
+            fullName: ''
+        },
+        methods: {},
+        computed: {},
+        watch: {
+            firstName: {
+                immediate: true,
+                handler(newVal, oldVal) {
+                    this.fullName = newVal + '-' + this.lastName;
+                }
+            },
+            lastName: {
+                immediate: true,
+                handler(newVal, oldVal) {
+                    this.fullName = this.firstName + '-' + newVal;
+                }
+            }
+        }
+    });
+</script>
+</html>
+
+
