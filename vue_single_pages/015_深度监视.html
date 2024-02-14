@@ -36,6 +36,7 @@
         // }
     });
     vm.$watch('weather', {
+        deep: true, //  在监视多层级的数据结构的情况下 （对象中的属性） 默认这个是关闭的 要配置成为 true 才能开启
         immediate: true,
         handler(newValue,oldValue){
             console.log('weather','变化前的值：', oldValue, '变化后的值：', newValue);
