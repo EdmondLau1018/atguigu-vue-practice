@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <!--dayjs 引入-->
+    <script type="text/javascript" src="js/dayjs.min.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <h2>当前 n 值 ：{{n}}</h2>
+    <h2>放大后的 n 值 ：<span v-big='n'>{{n}}</span></h2>
+    <button @click="n++">点我 n+1</button>
+</div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',
+        data: {
+            message: '内容content',
+            n: 1
+        },
+        directives: {
+            big(element, binding) {
+                console.log('自定义函数参数：', element, '------>', binding);
+                element.innerText = binding.value * 10
+            },
+        }
+    });
+</script>
+</html>
