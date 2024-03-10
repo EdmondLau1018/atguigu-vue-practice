@@ -388,3 +388,92 @@ Vue中的事件修饰符：
 v-for 默认添加 `index` 作为唯一标识
 
 
+
+# 表单数据收集
+
+**收集表单数据基本要点**：
+
+* 若：<input type="text"/>，则v-model收集的是value值，用户输入的就是value值。
+* 若：<input type="radio"/>，则v-model收集的是value值，且要给标签配置value值。
+* 若：<input type="checkbox"/>
+  1. 没有配置input的value属性，那么收集的就是checked（勾选 or 未勾选，是布尔值）
+  2. 配置input的value属性:
+     1. v-model的初始值是 **非数组**，那么收集的就是 **checked**（勾选 or 未勾选，是布尔值）
+     2. v-model的初始值是 **数组**，那么收集的的就是 **value** 组成的数组
+
+备注：v-model的三个修饰符：
+			lazy：失去焦点再收集数据
+			number：输入字符串转为有效的数字
+			trim：输入首尾空格过滤
+
+​			在表单 `@submit.revent` 指定表单的提交方法 并组织默认的提交行为 
+
+对应的 form 表单代码
+
+```html
+<form @submit.prevent="handleSubmit">
+        <!--trim 后缀在通过 v-model 收集数据的时候可以将用户在表单中输入的 空格去除-->
+        <label for="account">账户：</label> <input id="account" type="text" v-model.trim="userInfo.account"> <br><br>
+        <label for="password">密码：</label> <input id="password" type="password" v-model.trim="userInfo.password">
+        <br><br>
+        <!--使用 type="number" 是通过原生的方式让用户只允许输入整数  v-model.number 后缀对应了data域中的 数据类型 vue 在获取的时候获取的是数字 -->
+        <label for="age">年龄：</label> <input id="age" type="number" v-model.number="userInfo.age"> <br><br>
+        性别：
+        <input type="radio" value="male" name="sex" v-model="userInfo.sex">
+        <input type="radio" value="female" name="sex" v-model="userInfo.sex">
+        <br><br>
+        爱好：
+        <input type="checkbox" value="study" v-model="userInfo.hobby"> 学习
+        <input type="checkbox" value="sleep" v-model="userInfo.hobby"> 睡觉
+        <input type="checkbox" value="game" v-model="userInfo.hobby"> 打游戏
+        <br><br>
+        所在地区：
+        <select name="distinction" id="distinction" v-model="userInfo.distinction">
+            <option value="">请选择所在地区</option>
+            <option value="beijing">北京</option>
+            <option value="shanghai">上海</option>
+            <option value="shenzhen">深圳</option>
+            <option value="nanjing">南京</option>
+        </select>
+        <br><br>
+        <!--使用 “懒加载” 的方法收集数据 当前元素失去焦点的时候才收集数据 而不是元素 value 值发生变化的时候马上收集-->
+        其他信息：<textarea name="" id="otherInfo" cols="30" rows="10" v-model.lazy="userInfo.otherInfo"></textarea>
+        <br><br>
+        <input type="checkbox" v-model="userInfo.accept"> 已阅读并同意 <a href="">用户协议</a>
+        <br><br>
+        <button>提交</button>
+    </form>
+```
+
+# 过滤器
+
+**过滤器**：
+
+作用：对要显示的数据进行特定格式化后再显示（适用于一些简单逻辑的处理）。
+语法：
+
+```
+1.注册过滤器：Vue.filter(name,callback) 或 new Vue{filters:{}}   				(全局过滤器注册||局部过滤器注册)
+2.使用过滤器：{{ xxx | 过滤器名}}  或  v-bind:属性 = "xxx | 过滤器名"	 (一般通过插值表达式和v-bind指令不可使用 v-model 之类的其他指令)
+```
+
+备注：
+
+1. 过滤器也可以接收额外参数、多个过滤器也可以串联 
+2. 过滤器并没有改变原本的数据, 是产生新的对应的数据
+
+局部过滤器和全局过滤器示例代码：
+
+```javascript
+    //	局部过滤器 作为 一个配置对象写在 Vue 实例或者组件的内部   
+	filters: {
+            timeFormatter(value,strFormat = 'YYYY年MM月DD日'){
+                return dayjs(this.time).format(strFormat)
+            }
+        }
+    //  全局 Vue 过滤器  在 vue 对象加载之前完成声明
+    Vue.filter('myStrSlice',function (text) {
+        return text.slice(0,4)
+    })
+```
+

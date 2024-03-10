@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <!--dayjs 引入-->
+    <script type="text/javascript" src="js/dayjs.min.js"></script>
+</head>
+<body>
+<div id="root">
+    <h1>显示当前时间</h1>
+    <h3>当前时间：{{time}}</h3>
+    <!--计算属性格式化-->
+    <h3>当前时间：{{timeFmt}}</h3>
+    <!--方法引用格式化-->
+    <h3>当前时间：{{getFormatTime()}}</h3>
+    <!--过滤器格式化-->
+    <h3>当前时间：{{time | timeFormatter() | myStrSlice()}}</h3>
+</div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    //  全局 Vue 过滤器
+    Vue.filter('myStrSlice',function (text) {
+        return text.slice(0,4)
+    })
+    new Vue({
+        el: '#root',
+        data: {
+            time: Date.now()
+        },
+        computed: {
+            timeFmt(){
+                return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+            }
+        },
+        methods: {
+            getFormatTime(){
+                return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+            }
+        },
+        filters: {
+            timeFormatter(value,strFormat = 'YYYY年MM月DD日'){
+                return dayjs(this.time).format(strFormat)
+            }
+        }
+    });
+</script>
+</html>
