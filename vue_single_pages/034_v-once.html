@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <!--dayjs 引入-->
+    <script type="text/javascript" src="js/dayjs.min.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <h2>显示当前：{{n}}</h2>
+    <h2 v-once>只加载一次 显示初始值 {{n}}</h2>
+    <button @click="n++">+</button>
+
+</div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',
+        data: {
+            message: '内容content',
+            n: 1
+        },
+    });
+</script>
+</html>

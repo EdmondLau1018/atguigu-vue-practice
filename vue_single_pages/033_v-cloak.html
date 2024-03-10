@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <!--dayjs 引入-->
+    <script type="text/javascript" src="js/dayjs.min.js"></script>
+</head>
+<style type="text/css">
+    [v-cloak] {
+        display: none;
+    }
+</style>
+<body>
+<div id="root">
+    <h2 v-cloak>显示当前，{{message}}</h2>
+</div>
+<!--延时五秒钟引入 Vue -->
+<script type="text/javascript" src="http://localhost:8080/resource/5s/vue.js"></script>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',
+        data: {
+            message: '内容content',
+        },
+    });
+</script>
+</html>
