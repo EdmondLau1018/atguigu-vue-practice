@@ -586,3 +586,71 @@ cookie 在 开发者工具中可以查看
 * 可利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译。
 * 一般用于没有被 Vue 管理的元素上 此时 Vue 在解析模板的时候就不会解析这个元素中的内容 提升加载速度
 
+## 自定义指令
+
+可以通过在 Vue 实例代码中写一些配置项代码 创建自定义指令 通过 `v-` 指令名称 的方式进行引用 
+
+使用 `detectives` 配置项创建指令 可以使用 配置项中的三个回调函数 决定 自定义指令的行为 ：
+
+**案例代码**
+
+局部自定义指令
+
+```javascript
+        directives: {
+           	//	将 v-big 作用的对象 内部显示的值 （绑定的值） 修改为原来的10倍 
+            //	函数式
+            big(element, binding) {
+                element.innerText = binding.value * 10
+            },
+            //	配置对象式定义指令
+            fbind: {
+                bind(element, binding) {
+                    element.value = binding.value
+                },
+                inserted(element,binding) {
+                    element.focus()
+                },
+                update(element, binding) {
+                     element.value = binding.value
+                }
+            }
+        }
+```
+
+全局自定义指令
+
+```javascript
+    Vue.directive('fbind',{
+        bind(element, binding) {
+            element.value = binding.value
+        },
+        inserted(element,binding) {
+            element.focus()
+        },
+        update(element, binding) {
+            element.value = binding.value
+        }
+    })
+```
+
+| 函数名称 | 执行时间                           |
+| -------- | ---------------------------------- |
+| bind     | 指令与元素成功绑定时调用。         |
+| inserted | 指令所在元素被插入页面时调用。     |
+| update   | 指令所在模板结构被重新解析时调用。 |
+
+在标签上使用的时候是通过 `v-指令名称=‘参数’ `的方式进行引用的，比如下面的案例 使用的 就是 n 作为参数
+
+```html
+    <h2>当前 n 值 ：{{n}}</h2>
+    <h2>放大后的 n 值 ：<span v-big='n'>{{n}}</span></h2>
+    <hr>
+    自定义指令获取焦点：<input type="text" v-fbind="n">
+    <button @click="n++">点我 n+1</button>
+```
+
+**备注：**	
+
+1. 指令定义时不加v-，但使用时要加v-；
+2. 指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名。		
