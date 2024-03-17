@@ -846,7 +846,89 @@ Vue中使用组件的三大步骤：
 编写组件标签：
 		<school></school>
 
+> 组件的几个注意点
 
+1. 关于组件名:
+   	一个单词组成：
+   			第一种写法(首字母小写)：school
+   			第二种写法(首字母大写)：School
+       多个单词组成：
+   			第一种写法(kebab-case命名)：my-school
+   			第二种写法(CamelCase命名)：MySchool (需要Vue脚手架支持)
+   	 备注：
+   			(1). 组件名尽可能回避HTML中已有的元素名称，例如：h2、H2都不行。
+   			(2).可以使用name配置项指定组件在开发者工具中呈现的名字。
+2. 关于组件标签:
+   			第一种写法：<school></school>
+   			第二种写法：<school/>
+   			备注：不用使用脚手架时，<school/>会导致后续组件不能渲染。
+3. 一个简写方式：
+   							const school = Vue.extend(options) 可简写为：const school = options
 
+### 组件嵌套
 
+如果 A 组件需要将 B 组件嵌套在内部，则需要在A组件的配置中注册 B 组件 （在 A 的 components 中注册 B 组件）
+
+```vue
+    //  定义学生组件
+    let student = Vue.extend({
+        name: "student",
+        template: `
+          <div>
+          <h2>{{ msg }}</h2>
+          <h2>学生名称：{{ name }}</h2>
+          <h2>学生年龄：{{ age }}</h2>
+          </div>
+        `,
+        data() {
+            return {
+                msg: '这是 student 组件',
+                name: '牛马',
+                age: 18
+            }
+        },
+    });
+    //  定义组件
+    let school = Vue.extend({
+        name: "school",
+        template: `
+          <div>
+          <h2>{{ msg }}</h2>
+          <h2>学校名称：{{ name }}</h2>
+          <h2>学校地址：{{ address }}</h2>
+          <student></student>
+          </div>
+        `,
+        data() {
+            return {
+                msg: '这是 school 组件',
+                name: '牛马学院',
+                address: '全中国大陆境内'
+            }
+        },
+        components:{
+            student:student
+        },
+    });
+```
+
+这个案例是将 `student` 组件 注册到 `school` 组件中 页面容器 通过 `school` 显示对应的元素 
+
+### VueComponent
+
+1. Vue 组件的本质是一个名为 `VueComponent` 的构造函数 ，不是程序员定义的，是 `Vue.extend `生成的
+
+2. 我们只需要写<componentName/>或<componentName></componentName>，Vue解析时会帮我们创建组件的实例对象，
+   即Vue帮我们执行的：`new VueComponent(options)`。
+
+3. 特别注意：每次调用Vue.extend，返回的都是一个全新的VueComponent！！！！
+
+4. 关于this指向：
+
+   1. 组件配置中：
+      	    data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【**VueComponent实例对象**】。
+   2. new Vue(options)配置中：
+               data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【**Vue实例对象**】。
+
+   
 
