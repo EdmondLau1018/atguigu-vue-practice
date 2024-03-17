@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <!--dayjs 引入-->
+    <script type="text/javascript" src="js/dayjs.min.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <h1 :style="{opacity}">欢迎学习 Vue</h1>
+    <button @click="desVue">点击彻底销毁vue</button>
+</div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    let timer  //   全局变量 让 mounted 中的定时器可以被其他方法访问
+    new Vue({
+        el: '#root',
+        data: {
+            message: '内容content',
+            opacity: 1,
+            n: 1
+        },
+        methods: {
+          desVue(){
+              //    主动销毁当前页面的 vm 对象
+             this.$destroy()
+          }
+        },
+        mounted(){
+            //  页面挂载完成 开启定时器
+            timer = setInterval(() => {
+                this.opacity -= 0.1
+                if (this.opacity <= 0) this.opacity = 1
+            },86)
+        },
+        beforeDestroy(){
+            //  vm  即将销毁
+            clearInterval(timer)
+            console.log('vue即将彻底销毁...');
+        }
+    });
+</script>
+</html>

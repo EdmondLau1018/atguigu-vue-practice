@@ -657,9 +657,81 @@ cookie 在 开发者工具中可以查看
 
 ## 生命周期
 
-
-
-
-
 ![生命周期](README.assets/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png)
 
+> Vue 对象实例 vm 生命周期中的 八个 （4组）钩子函数
+
+| 函数名称          | 调用时间\|\|作用                                             |
+| ----------------- | ------------------------------------------------------------ |
+| **创建阶段**      |                                                              |
+| beforeCreate      | 数据监测和数据代理为创建之前调用，此时无法访问到 data 中的数据和 method 中的方法 |
+| cerated           | 数据监测和数据代理创建完成后调用。此时可以通过 vm 对象访问到 data 中的数据和 method 中的方法 |
+| **挂载阶段**      |                                                              |
+| beforeMount       | 解析模板之后未经编译的 DOM 结构 此时对页面的操作均不生效 这个时候的 DOM 还都是内存中的虚拟DOM |
+| **mounted**       | 经过 Vue 模板编译之后的真实 DOM 此时对 DOM 的操作均有效 ；**在这里进行初始化操作**；一般进行 **开启定时器、发送网络请求、订阅消息、绑定自定义事件**等初始化操作 |
+| **数据更新**      |                                                              |
+| beforeUpdate      | 此时数据是新的但是页面元素并没有更新，页面数据与 vm 中的数据并未保持一致 |
+| updated           | DOM 完成更新时调用 此时页面与数据保持一致                    |
+| **销毁阶段**      |                                                              |
+| **beforeDestroy** | 销毁阶段前调用的函数，此时 vm 中的 data method 指令都可用 但是马上要进行销毁 ；**不适合在此时进行数据操作因为即使操作数据也不会触发更新流程**  一般在此阶段：**关闭定时器、解绑自定义事件、取消消息订阅**等 |
+| destroyed         | vm 对象销毁后调用的函数 ，此时自定义事件完全失效 但是原生的页面事件仍然有效 |
+
+**备注**
+
+常用的生命周期钩子：
+
+1. mounted: 发送ajax请求、启动定时器、绑定自定义事件、订阅消息等【初始化操作】。
+2. beforeDestroy: 清除定时器、解绑自定义事件、取消订阅消息等【收尾工作】。
+
+关于销毁Vue实例
+
+1. 销毁后借助Vue开发者工具看不到任何信息。
+2. 销毁后自定义事件会失效，但原生DOM事件依然有效。
+3. 一般不会在beforeDestroy操作数据，因为即便操作数据，也不会再触发更新流程了。
+
+> 用一个定时器案例说明常用生命周期函数的应用场景
+
+```html
+<body>
+<div id="root">
+    <h1 :style="{opacity}">欢迎学习 Vue</h1>
+    <button @click="desVue">点击彻底销毁vue</button>
+</div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    let timer  //   全局变量 让 mounted 中的定时器可以被其他方法访问
+    new Vue({
+        el: '#root',
+        data: {
+            message: '内容content',
+            opacity: 1,
+            n: 1
+        },
+        methods: {
+          desVue(){
+              //    主动销毁当前页面的 vm 对象
+             this.$destroy()
+          }
+        },
+        mounted(){
+            //  页面挂载完成 开启定时器
+            timer = setInterval(() => {
+                this.opacity -= 0.1
+                if (this.opacity <= 0) this.opacity = 1
+            },86)
+        },
+        beforeDestroy(){
+            //  vm  即将销毁
+            clearInterval(timer)
+            console.log('vue即将彻底销毁...');
+        }
+    });
+</script>
+```
+
+## 组件
+
+定义：**实现应用中局部功能的代码和资源的集合**
+
+![67fecdb9851b73664e71019942ddfa0](README.assets/67fecdb9851b73664e71019942ddfa0-1710642735798-3.png)
