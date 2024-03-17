@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>非单文件组件</title>
+    <script type="text/javascript" src="js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <school></school>
+    <hr>
+    <student></student>
+</div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    //  定义组件
+    let school = Vue.extend({
+        template: `
+          <div>
+          <h2>{{ msg }}</h2>
+          <h2>学校名称：{{ name }}</h2>
+          <h2>学校地址：{{ address }}</h2>
+          <button @click="handleShow">点击显示学院名称</button>
+          </div>
+        `,
+        data() {
+            return {
+                msg: '这是 school 组件',
+                name: '牛马学院',
+                address: '全中国大陆境内'
+            }
+        },
+        methods: {
+            handleShow() {
+                alert(this.name)
+            }
+        }
+    });
+
+    //  定义学生组件
+    let student = Vue.extend({
+        template: `
+          <div>
+          <h2>{{ msg }}</h2>
+          <h2>学生名称：{{ name }}</h2>
+          <h2>学生年龄：{{ age }}</h2>
+          </div>
+        `,
+        data() {
+            return {
+                msg: '这是 student 组件',
+                name: '牛马',
+                age: 18
+            }
+        },
+    });
+    //  全局注册 student 组件
+    Vue.component('student', student)
+    new Vue({
+        el: "#root",
+        components: {
+            //  局部注册 school 组件
+            school: school,
+        }
+    });
+
+</script>
+</html>

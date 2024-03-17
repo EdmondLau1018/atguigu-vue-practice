@@ -735,3 +735,118 @@ cookie 在 开发者工具中可以查看
 定义：**实现应用中局部功能的代码和资源的集合**
 
 ![67fecdb9851b73664e71019942ddfa0](README.assets/67fecdb9851b73664e71019942ddfa0-1710642735798-3.png)
+
+**模块化**：当应用中的 js 都以模块来编写的, 那这个应用就是一个模块化的应用 
+
+将一个大型的js文件拆分为数个完成某项具体功能的 js 文件
+
+**组件化**：当应用中的功能都是多组件的方式来编写的, 那这个应用就是一个组件化的应用,
+
+将应用的页面结构进行拆分，不同的功能需求引入不同的组件即可完成
+
+> 为什么组件中的对象定义成一个 data() 函数而不是 data 对象 ？
+
+在不同的页面调用同一个组件时，如果 data 定义成对象 那么他们修改的就是同一块内存区域中的数据
+
+通过定义成data 函数在不同组件调用的时候 都会通过 data() 函数给当前的组件重新初始化对应的数据对象 ，避免修改 A 组件数据引发 B 组件页面变化的情况发生
+
+### 非单文件组件
+
+非单文件组件中 一个文件中含有多个不同的 组件
+
+1. 组件的创建 ： 在单个文件中使用 `Vue.extend({配置对象信息})` 的形式创建组件
+2. 组件的注册 ：全局注册和 **局部注册（更加常用）**
+3. 组件的使用：在页面上使用 `模板标签` 引入组件
+
+```html
+<body>
+<div id="root">
+    <school></school>
+    <hr>
+    <student></student>
+</div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+    //  定义组件
+    let school = Vue.extend({
+        template: `
+          <div>
+          <h2>{{ msg }}</h2>
+          <h2>学校名称：{{ name }}</h2>
+          <h2>学校地址：{{ address }}</h2>
+          <button @click="handleShow">点击显示学院名称</button>
+          </div>
+        `,
+        data() {
+            return {
+                msg: '这是 school 组件',
+                name: '牛马学院',
+                address: '全中国大陆境内'
+            }
+        },
+        methods: {
+            handleShow() {
+                alert(this.name)
+            }
+        }
+    });
+
+    //  定义学生组件
+    let student = Vue.extend({
+        template: `
+          <div>
+          <h2>{{ msg }}</h2>
+          <h2>学生名称：{{ name }}</h2>
+          <h2>学生年龄：{{ age }}</h2>
+          </div>
+        `,
+        data() {
+            return {
+                msg: '这是 student 组件',
+                name: '牛马',
+                age: 18
+            }
+        },
+    });
+    //  全局注册 student 组件
+    Vue.component('student', student)
+    new Vue({
+        el: "#root",
+        components: {
+            //  局部注册 school 组件
+            school: school,
+        }
+    });
+
+</script>
+```
+
+**总结**
+
+Vue中使用组件的三大步骤：
+一、定义组件(创建组件)
+二、注册组件
+三、使用组件(写组件标签)
+
+> 如何定义一个组件？
+
+使用Vue.extend(options)创建，其中options和new Vue(options)时传入的那个options几乎一样，但也有点区别；
+区别如下：
+
+1. el不要写，为什么？ ——— 最终所有的组件都要经过一个vm的管理，由vm中的el决定服务哪个容器。
+2. data必须写成函数，为什么？ ———— 避免组件被复用时，数据存在引用关系。
+   备注：使用template可以配置组件结构。
+
+> 如何注册组件?
+
+1. 局部注册：靠new Vue的时候传入components选项
+2. 全局注册：靠Vue.component('组件名',组件)
+
+编写组件标签：
+		<school></school>
+
+
+
+
+
