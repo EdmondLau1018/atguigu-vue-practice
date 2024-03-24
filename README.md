@@ -860,8 +860,8 @@ Vue中使用组件的三大步骤：
    			(2).可以使用name配置项指定组件在开发者工具中呈现的名字。
 2. 关于组件标签:
    			第一种写法：<school></school>
-   			第二种写法：<school/>
-   			备注：不用使用脚手架时，<school/>会导致后续组件不能渲染。
+      			第二种写法：<school/>
+      			备注：不用使用脚手架时，<school/>会导致后续组件不能渲染。
 3. 一个简写方式：
    							const school = Vue.extend(options) 可简写为：const school = options
 
@@ -923,12 +923,22 @@ Vue中使用组件的三大步骤：
 
 3. 特别注意：每次调用Vue.extend，返回的都是一个全新的VueComponent！！！！
 
-4. 关于this指向：
-
+4. **关于this指向**：
    1. 组件配置中：
-      	    data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【**VueComponent实例对象**】。
+          data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【**VueComponent实例对象**】。
    2. new Vue(options)配置中：
-               data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【**Vue实例对象**】。
-
+             data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【**Vue实例对象**】。
    
+
+### Vue 与 VueComponent 
+
+![image-20240324105550972](README.assets/image-20240324105550972.png)
+
+```javascript
+VueComponent.prototype.__proto__ === Vue.prototype
+```
+
+可以让 vc 对象访问 Vue 原型上属性和方法
+
+### 单文件组件
 
