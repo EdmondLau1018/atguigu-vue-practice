@@ -942,3 +942,125 @@ VueComponent.prototype.__proto__ === Vue.prototype
 
 ### 单文件组件
 
+命名规则
+
+
+
+# Vue 脚手架
+
+如果在 Windows 电脑上安装了 Vue 之后 在 cmd 输入 vue 命令提示 `'vue' 不是内部或外部命令，也不是可运行的程序或批处理文件。`
+
+说明：`npm`的全局安装目录没有被添加到系统的环境变量`PATH`中。当你尝试在命令行中运行`vue`命令时，系统无法在`PATH`中找到它。
+
+解决这个问题首先需要找到 Vue 全局安装的目录
+
+```bash
+npm config get prefix
+```
+
+将 返回的路径配置到 Path 环境变量中就可以了
+
+<img src="README.assets/1711267527853-1711267550041-3.png" alt="1711267527853" style="zoom:77%;" />
+
+之后重新打开 cmd 就可以全局使用 vue 的相关命令了
+
+##  Vue-Cli工程
+
+创建命令是 
+
+```bash
+vue create 工程名称
+```
+
+然后跟着走就行了 在编码的时候我一般会取消 Babel  和 lint 语法检查
+
+> Vue Cli 工程结构
+
+![1711267912041](README.assets/1711267912041.png)
+
+`main.js` 是 vue-cli 的入口文件 当运行 `npm run serve` 的时候会执行这个文件中的内容
+
+```javascript
+/**
+ *该文件是 Vue-CLI 项目的入口文件
+ * 程序执行 npm run serve 的时候就会走这个文件
+ */
+//  引入 Vue
+import Vue from 'vue'
+//  引入管理其他组件的组件 App
+import App from './App.vue'
+//  关闭 Vue 生产提示
+Vue.config.productionTip = false
+//  创建 Vue 实例对象
+new Vue({
+    
+  render: function (h) { return h(App) },
+  //  将 Vue 实例对象挂载到对应的容器上 相当于 el 指定 Vue 服务的容器
+}).$mount('#app')
+```
+
+`App.vue` 是 cli 工程的根组件
+
+```vue
+<template>
+  <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png">
+    <School></School>
+    <Student></Student>
+  </div>
+</template>
+
+<script>
+// 引入自定义组件
+import School from "./components/School";
+import Student from "./components/Student";
+
+
+export default {
+  name: 'App',
+  components: {
+    // 注册自定义组件
+    School,
+    Student
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+```
+
+`index.html`是当前单页面应用的根页面
+
+```html
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <!-- 浏览器使用最高的编译级别编译这个项目-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--引入静态资源的时候使用的 其中 BASE_URL 指的是 public 同级目录-->
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <!--当前浏览器不支持 JavaScript 的时候会渲染这个标签的提示-->
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <!--容器-->
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
+```
+
