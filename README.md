@@ -1038,7 +1038,7 @@ export default {
 </style>
 ```
 
-`index.html`是当前单页面应用的根页面
+`index.html`是当前单页面应用的根页面	
 
 ```html
 <!DOCTYPE html>
@@ -1063,4 +1063,43 @@ export default {
   </body>
 </html>
 ```
+
+## render 函数
+
+在 App 组件中引入的 Vue 并不是完整的 Vue （因为打包之后的项目不需要那么功能） 而是引入的 `Vue.runtime.xxx.js`
+
+1. vue.js与vue.runtime.xxx.js的区别：
+   1. vue.js是完整版的Vue，包含：核心功能 + 模板解析器。
+   2. vue.runtime.xxx.js是运行版的Vue，只包含：核心功能；没有模板解析器。
+2. 因为vue.runtime.xxx.js没有模板解析器，所以不能使用template这个配置项，需要使用render函数接收到的createElement函数去指定具体内容。
+
+在 App 组件进行挂载的时候会通过 `render ` 函数充当 模板解析器的职能
+
+```vue
+new Vue({
+    render: function (h) {
+      return h(App)
+    },
+    // render: createElement => {
+    //     //  render 函数 （在运行时充当模板解析器的功能） 解析 h1 本来的标签和 组件模板信息
+    //     return createElement('h1','hello render')
+    // },
+    // render: createElement => createElement('h1','箭头函数版本')  //    箭头函数版本的 render
+    //  将 Vue 实例对象挂载到对应的容器上 相当于 el 指定 Vue 服务的容器
+}).$mount('#app')
+```
+
+
+
+## ref 
+
+
+
+## props
+
+
+
+
+
+## mixin
 
