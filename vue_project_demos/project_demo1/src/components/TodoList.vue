@@ -4,6 +4,7 @@
               :key="todoObj.id"
               :todoObj="todoObj"
               :removeFromList="removeFromList"
+              :checkTodo="checkTodo"
               />
   </ul>
 </template>
@@ -13,7 +14,7 @@ import TodoItem from "@/components/TodoItem";
 
 export default {
   name: "TodoList",
-  props: ['todoList','removeFromList'],
+  props: ['todoList','removeFromList','checkTodo'],
   components: {TodoItem},
   data() {
     return {

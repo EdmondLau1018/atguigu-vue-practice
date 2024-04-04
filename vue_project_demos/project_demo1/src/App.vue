@@ -1,7 +1,7 @@
 <template>
   <div class="todo-wrap">
     <TodoHeader :addTodoObj="addTodoObj"/>
-    <TodoList :todoList="todoList" :removeFromList="removeFromList"/>
+    <TodoList :todoList="todoList" :removeFromList="removeFromList" :checkTodo="checkTodo"/>
     <TodoFooter :todoList="todoList"/>
   </div>
 </template>
@@ -36,8 +36,15 @@ export default {
     addTodoObj(todoObj){
       this.todoList.unshift(todoObj)
     },
+    //  删除
     removeFromList(id){
       this.todoList = this.todoList.filter(item => item.id !== id)
+    },
+    //  勾选某一项
+    checkTodo(id){
+      this.todoList.forEach(item => {
+        if (item.id === id) item.checked = true
+      })
     }
   }
 }
