@@ -1165,5 +1165,36 @@ new Vue({
 
 > 定义
 
+插件的本质是一个对象  ， 新建插件增强  JavaScript 文件 同时提供对外暴露接口 
+
+默认需要在 插件对象中 添加一个 `install(Vue)` 方法 接收的参数是 Vue 的构造函数对象 
+
+在插件对象中可以定义 全局过滤器，全局自定义指令，全局插件 ，还可以给 Vue 的原型添加新的方法
+
+```Vue
+import {DemoMixin} from "@/DemoMixin";
+
+export default {
+    install(Vue) {
+        //  自定义全局过滤器
+        Vue.filter('mySlice',function (text) {
+            ...
+        })
+        // 自定义指令
+        Vue.directive('fbind',{
+          ...
+        })
+        //  自定义混入
+        Vue.mixin(DemoMixin)
+		//	给 全局 Vue 原型添加新的方法
+        Vue.prototype.hello  = () => {
+            ...
+        }
+    }
+}
+```
+
+
+
 
 
