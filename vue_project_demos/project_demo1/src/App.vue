@@ -1,8 +1,14 @@
 <template>
   <div class="todo-wrap">
     <TodoHeader :addTodoObj="addTodoObj"/>
-    <TodoList :todoList="todoList" :removeFromList="removeFromList" :checkTodo="checkTodo"/>
-    <TodoFooter :todoList="todoList"/>
+    <TodoList :todoList="todoList"
+              :removeFromList="removeFromList"
+              :checkTodo="checkTodo"
+    />
+    <TodoFooter :todoList="todoList"
+                :checkAllTodos="checkAllTodos"
+                :clearCompleted="clearCompleted"
+    />
   </div>
 </template>
 
@@ -40,11 +46,22 @@ export default {
     removeFromList(id){
       this.todoList = this.todoList.filter(item => item.id !== id)
     },
-    //  勾选某一项
+    //  勾选某一项 (取消勾选)
     checkTodo(id){
       this.todoList.forEach(item => {
-        if (item.id === id) item.checked = true
+        if (item.id === id) item.checked = !item.checked
       })
+    },
+    checkAllTodos(checked){
+      if (checked) {
+        this.todoList.forEach(item => item.checked = true)
+      } else {
+        this.todoList.forEach(item => item.checked = false)
+      }
+    },
+    //  清除所有已完成任务
+    clearCompleted(){
+      this.todoList = this.todoList.filter(item => item.checked === false)
     }
   }
 }

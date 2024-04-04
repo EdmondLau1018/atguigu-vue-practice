@@ -1,19 +1,19 @@
 <template>
-  <div class="todo-footer">
+  <div class="todo-footer" v-show="totalTodos">
     <label>
-      <input type="checkbox"/>
+      <input type="checkbox" v-model="isAll"/>
     </label>
     <span>
-          <span>已完成：{{ completedTodos }}</span> / 全部：{{ todoList.length }}
+          <span>已完成：{{ completedTodos }}</span> / 全部：{{ totalTodos }}
         </span>
-    <button class="btn btn-danger">清除已完成任务</button>
+    <button class="btn btn-danger" @click="handleClear">清除已完成任务</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "TodoFooter",
-  props: ['todoList'],
+  props: ['todoList','checkAllTodos','clearCompleted'],
   data() {
     return {}
   },
@@ -24,6 +24,23 @@ export default {
       // }, 0)
       //  reduce 函数 pre 第一次调用的时候 pre 是预设值 ，以后的每一次调用 pre 都是上次函数运行的返回值
       return this.todoList.reduce((pre,current) => {return pre + (current.checked ? 1 : 0)},0)
+    },
+    totalTodos(){
+      return this.todoList.length
+    },
+    isAll: {
+      get(){
+        return this.totalTodos === this.completedTodos
+      },
+      set(value){
+        //  属性更新的时候触发操作 value 值是最后的选中状态
+        this.checkAllTodos(value)
+      }
+    }
+  },
+  methods: {
+    handleClear (){
+      this.clearCompleted()
     }
   }
 }
