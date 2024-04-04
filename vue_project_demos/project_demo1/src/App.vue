@@ -2,7 +2,7 @@
   <div class="todo-wrap">
     <TodoHeader :addTodoObj="addTodoObj"/>
     <TodoList :todoList="todoList"/>
-    <TodoFooter/>
+    <TodoFooter :todoList="todoList"/>
   </div>
 </template>
 

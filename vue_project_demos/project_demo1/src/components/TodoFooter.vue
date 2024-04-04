@@ -4,7 +4,7 @@
       <input type="checkbox"/>
     </label>
     <span>
-          <span>已完成0</span> / 全部2
+          <span>已完成：{{ completedTodos }}</span> / 全部：{{ todoList.length }}
         </span>
     <button class="btn btn-danger">清除已完成任务</button>
   </div>
@@ -13,9 +13,18 @@
 <script>
 export default {
   name: "TodoFooter",
-  props: {},
+  props: ['todoList'],
   data() {
     return {}
+  },
+  computed: {
+    completedTodos() {
+      // return this.todoList.reduce((pre, current) => {
+      //   return pre + (current.checked ? 1 : 0)
+      // }, 0)
+      //  reduce 函数 pre 第一次调用的时候 pre 是预设值 ，以后的每一次调用 pre 都是上次函数运行的返回值
+      return this.todoList.reduce((pre,current) => {return pre + (current.checked ? 1 : 0)},0)
+    }
   }
 }
 </script>
