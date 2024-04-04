@@ -1,13 +1,21 @@
 <template>
-  <div class="school">
+  <div class="student">
     <h3>学生名称：{{ name }}</h3>
     <h3>学生性别：{{ sexJob }}</h3>
+    <h3>展示 whoreName : {{whoreName}}</h3>
   </div>
 </template>
 
 <script>
 export default {
   name: "Student",
+  props: {
+    whoreName: {
+      type: String,
+      default: 'DMH',
+      required: true,
+    }
+  },
   data() {
     return {
       name: '小牛马',

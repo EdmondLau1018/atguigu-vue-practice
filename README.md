@@ -389,8 +389,6 @@ Vue中的事件修饰符：
 有了数据唯一标识之后 新添加的数据元素在虚拟 DOM 中会与之前的 虚拟元素进行对比，可以根据数据唯一值 key 判断哪些元素是可以复用的 ，哪些元素不是可以复用的 
 v-for 默认添加 `index` 作为唯一标识
 
-
-
 ## 表单数据收集
 
 **收集表单数据基本要点**：
@@ -942,10 +940,6 @@ VueComponent.prototype.__proto__ === Vue.prototype
 
 ### 单文件组件
 
-命名规则
-
-
-
 # Vue 脚手架
 
 如果在 Windows 电脑上安装了 Vue 之后 在 cmd 输入 vue 命令提示 `'vue' 不是内部或外部命令，也不是可运行的程序或批处理文件。`
@@ -1075,6 +1069,8 @@ export default {
 
 在 App 组件进行挂载的时候会通过 `render ` 函数充当 模板解析器的职能
 
+`render` 函数的参数 和返回内容都是 `createElement ` 函数  该函数可以解析 html 本来的标签和 解析 vue 组件标签代码
+
 ```vue
 new Vue({
     render: function (h) {
@@ -1089,17 +1085,52 @@ new Vue({
 }).$mount('#app')
 ```
 
+## ref 属性
 
+1. 用来给 html 元素或者 vue 组件注册 创建 引用信息 相当于 是html 或者 组件元素的 id
 
-## ref 
+2. 应用在 html 元素上获取的就是 真实的 DOM 元素 ，应用在组件上获取的就是 组件实例对象
 
+3. 使用方式  在 html 模板标签上打上  ref 属性 
 
+   ```html
+   	<School ref="school"></School>
+       <Student ref="student"></Student>
+       <h1 ref="h1">南京不欢迎你，臭外地的跑到南京来要饭来了？</h1>
+   ```
 
-## props
+通过 `this.$refs.ref名称` 进行引用
 
+```javascript
+  mounted() {
+    // 获取的是 组件对象 
+    console.log(this.$refs.school);
+    console.log(this.$refs.student);
+    //  获取的是真实 DOM 元素
+    console.log(this.$refs.h1.innerText);
+  }
+```
 
+**说明**：通过 `document.getElementById`  获取 组件的 id 元素，获取到的是当前组件内部的 html 元素
 
+## props 配置项 
 
+1. 让组件接收到外部传递的数据
+2. 数据传递方式 `<组件名称 name=‘value’>` 默认传递数据的类型 是 String 
+3. 接收数据的类型：
+   * 直接接收  `props: [name]`
+   * 限制接收类型： `props: {name:String}`
+   * 配置项接收（限制类型，参数是否必要，指定默认值）
+
+```javascript
+  props: {
+    whoreName: {
+      type: String,			//	限制类型
+      default: 'DMH',		//	默认值
+      required: true,		//	是否必要
+    }
+  }
+```
 
 ## mixin
 
