@@ -4,16 +4,21 @@
       <input type="checkbox" :checked="todoObj.checked"/>
       <span>{{todoObj.name}}</span>
     </label>
-    <button class="btn btn-danger" style="display:none">删除</button>
+    <button class="btn btn-danger" @click="handleDelete">删除</button>
   </li>
 </template>
 
 <script>
 export default {
   name: "TodoItem",
-  props: ['todoObj'],
+  props: ['todoObj','removeFromList'],
   data() {
     return {}
+  },
+  methods: {
+    handleDelete(){
+      this.removeFromList(this.todoObj.id)
+    }
   }
 }
 </script>
@@ -52,5 +57,13 @@ li:before {
 
 li:last-child {
   border-bottom: none;
+}
+
+li:hover {
+  background-color: #dddddd;
+}
+
+li:hover button {
+  display: block;
 }
 </style>

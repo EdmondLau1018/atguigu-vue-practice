@@ -1,7 +1,7 @@
 <template>
   <div class="todo-wrap">
     <TodoHeader :addTodoObj="addTodoObj"/>
-    <TodoList :todoList="todoList"/>
+    <TodoList :todoList="todoList" :removeFromList="removeFromList"/>
     <TodoFooter :todoList="todoList"/>
   </div>
 </template>
@@ -35,6 +35,9 @@ export default {
   methods: {
     addTodoObj(todoObj){
       this.todoList.unshift(todoObj)
+    },
+    removeFromList(id){
+      this.todoList = this.todoList.filter(item => item.id !== id)
     }
   }
 }
