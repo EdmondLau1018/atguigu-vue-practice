@@ -9,6 +9,10 @@ import App from './App.vue'
 //  关闭 Vue 生产提示
 Vue.config.productionTip = false
 //  创建 Vue 实例对象
+
+// 全局引入插件
+import plugins from "@/plugins";
+Vue.use(plugins)
 new Vue({
     render: function (h) {
       return h(App)
