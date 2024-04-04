@@ -9,6 +9,7 @@ export default {
   name: "TodoHeader",
   props: {},
   data() {
+    return {}
   }
 }
 </script>

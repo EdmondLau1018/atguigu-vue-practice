@@ -1,6 +1,6 @@
 <template>
   <ul class="todo-main">
-    <TodoItem/>
+    <TodoItem v-for="todoObj in todoList" :key="todoObj.id" :todoObj="todoObj"/>
   </ul>
 </template>
 
@@ -12,6 +12,15 @@ export default {
   props: {},
   components: {TodoItem},
   data() {
+    return {
+      todoList: [
+        {id: '001',name: '锻炼',checked: false},
+        {id: '002',name: '吃饭',checked: true},
+        {id: '003',name: '嫖娼',checked: true},
+        {id: '004',name: '搞点钱',checked: true},
+        {id: '005',name: '谈对象',checked: false},
+      ]
+    }
   }
 }
 </script>

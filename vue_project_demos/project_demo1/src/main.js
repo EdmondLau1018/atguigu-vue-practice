@@ -8,6 +8,8 @@ import Vue from 'vue'
 import App from './App.vue'
 //  关闭 Vue 生产提示
 Vue.config.productionTip = false
+// 浏览器开启 Vue 调试工具
+Vue.config.devtools = true
 //  创建 Vue 实例对象
 new Vue({
     render: function (h) {

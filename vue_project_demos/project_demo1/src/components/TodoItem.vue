@@ -1,8 +1,8 @@
 <template>
   <li>
     <label>
-      <input type="checkbox"/>
-      <span>xxxxx</span>
+      <input type="checkbox" :checked="todoObj.checked"/>
+      <span>{{todoObj.name}}</span>
     </label>
     <button class="btn btn-danger" style="display:none">删除</button>
   </li>
@@ -11,8 +11,9 @@
 <script>
 export default {
   name: "TodoItem",
-  props: {},
+  props: ['todoObj'],
   data() {
+    return {}
   }
 }
 </script>

@@ -15,6 +15,7 @@ export default {
   name: "TodoFooter",
   props: {},
   data() {
+    return {}
   }
 }
 </script>
