@@ -1,33 +1,25 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <School id="school" ref="school"></School>
-    <Student ref="student" whoreName="XXN"></Student>
-    <h1 ref="h1">南京不欢迎你，臭外地的跑到南京来要饭来了？</h1>
+  <div class="todo-wrap">
+    <TodoHeader/>
+    <TodoList/>
+    <TodoFooter/>
   </div>
 </template>
 
 <script>
-// 引入自定义组件
-import School from "./components/School";
-import Student from "./components/Student";
 
+import TodoHeader from "@/components/TodoHeader";
+import TodoList from "@/components/TodoList";
+import TodoFooter from "@/components/TodoFooter";
 
 export default {
   name: 'App',
   components: {
-    // 注册自定义组件
-    School,
-    Student
+    TodoHeader,
+    TodoList,
+    TodoFooter
   },
   mounted() {
-    // 获取的是 组件对象
-    console.log(this.$refs.school);
-    console.log(this.$refs.student);
-    //  获取的是真实 DOM 元素
-    console.log(this.$refs.h1.innerText);
-    let element = document.getElementById('school');
-    console.log(element);
   }
 }
 </script>
@@ -40,5 +32,49 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+/*base*/
+body {
+  background: #fff;
+}
+
+.btn {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #da4f49;
+  border: 1px solid #bd362f;
+}
+
+.btn-danger:hover {
+  color: #fff;
+  background-color: #bd362f;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.todo-container {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.todo-container .todo-wrap {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 </style>
