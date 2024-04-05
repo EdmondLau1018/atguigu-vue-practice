@@ -1281,7 +1281,49 @@ export default {
 
 8. 组件通过 `v-on` 绑定事件的时候默认绑定的是自定义事件 ，如果需要绑定原生事件需要加上 native 修饰符 `<Demo @click.native="test"/>`
 
+## 全局事件总线
 
+1. 一种组件间通信的方式，适用于<span style="color:red">任意组件间通信</span>。
+
+2. 安装全局事件总线：
+
+   ```js
+   new Vue({
+   	......
+   	beforeCreate() {
+   		Vue.prototype.$bus = this //安装全局事件总线，$bus就是当前应用的vm
+   	},
+       ......
+   }) 
+   ```
+
+3. 使用事件总线：
+
+   1. 接收数据：A组件想接收数据，则在A组件中给$bus绑定自定义事件，事件的<span style="color:red">回调留在A组件自身。</span>
+
+      ```js
+      methods(){
+        demo(data){......}
+      }
+      ......
+      mounted() {
+        this.$bus.$on('xxxx',this.demo)
+      }
+      ```
+
+   2. 提供数据：```this.$bus.$emit('xxxx',数据)```
+
+4. 最好在beforeDestroy钩子中，用$off去解绑<span style="color:red">当前组件所用到的</span>事件。
+
+> 说明
+
+全局事件总线相当于是 一个 在 Vue 原型上的一个组件
+
+某个组件需要接收其他组件传递的数据时，可以通过给这个组件绑定事件的方式，从事件回调的参数中获取参数信息
+
+向其他组件传参的组件 通过 `$emit`调用 总线里的方法 将参数传递即可
+
+**事件绑定在总线上，传参的组件调用 $emit 接收参数的组件用事件回调接收参数**
 
 
 

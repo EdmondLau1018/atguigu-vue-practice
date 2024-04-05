@@ -8,14 +8,11 @@ import Vue from 'vue'
 import App from './App.vue'
 //  关闭 Vue 生产提示
 Vue.config.productionTip = false
+// 浏览器开启 Vue 调试工具
+Vue.config.devtools = true
 //  创建 Vue 实例对象
-
 new Vue({
     render: function (h) {
       return h(App)
     },
-    // 在 Vue 开始渲染模板之前声明全局事件总线
-    beforeCreate() {
-        Vue.prototype.$bus = this
-    }
 }).$mount('#app')
