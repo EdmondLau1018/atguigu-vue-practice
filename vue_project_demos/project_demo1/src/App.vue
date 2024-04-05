@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <School id="school" ref="school"></School>
-    <Student ref="student" whoreName="XXN"></Student>
+    <School id="school" ref="school" v-on:getName="getSchoolName"></School>
+    <Student ref="student"/>
     <h1 ref="h1">南京不欢迎你，臭外地的跑到南京来要饭来了？</h1>
   </div>
 </template>
@@ -21,13 +21,20 @@ export default {
     Student
   },
   mounted() {
-    // 获取的是 组件对象
-    console.log(this.$refs.school);
-    console.log(this.$refs.student);
-    //  获取的是真实 DOM 元素
-    console.log(this.$refs.h1.innerText);
-    let element = document.getElementById('school');
-    console.log(element);
+    //  三秒后再给组件绑定事件
+    setTimeout(() => {
+      this.$refs.student.$on('getWhore',this.getWhoreObject)
+    },3000)
+  },
+  methods: {
+    //  params 是 ES6 的一种语法 除了 schoolName 之外的参数会被整合在 params 数组中
+    getSchoolName(schoolName,...params){
+      alert(schoolName)
+      console.log(params);
+    },
+    getWhoreObject(bitch){
+      console.log('三秒后获取信息：',bitch);
+    }
   }
 }
 </script>
@@ -40,5 +47,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  background-color: gray;
 }
 </style>

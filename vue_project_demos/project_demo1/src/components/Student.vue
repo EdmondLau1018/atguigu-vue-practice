@@ -2,17 +2,13 @@
   <div class="student">
     <h3>学生名称：{{ name }}</h3>
     <h3>学生性别：{{ sexJob }}</h3>
-    <!--测试新增的全局过滤器-->
-    <h3>展示 whoreName : {{ whoreName | mySlice }}</h3>
-    <button @click="showName">火速展示</button>
+    <button @click="sendWhoreInfo">发送婊子信息</button>
   </div>
 </template>
 
 <script>
-// import {DemoMixin} from "../DemoMixin";
 export default {
   name: "Student",
-  // mixins: [DemoMixin],
   props: {
     whoreName: {
       type: String,
@@ -25,12 +21,20 @@ export default {
       name: '小牛马',
       sexJob: '网红女技师'
     }
+  },
+  methods: {
+    sendWhoreInfo(){
+      this.$emit('getWhore',{name:this.name,job:'blowJob'})
+    }
   }
 }
 </script>
 
 <style scoped>
-.school {
-  background-color: yellow;
+.student {
+  background-color: yellowgreen;
+  margin-top: 14px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 </style>
