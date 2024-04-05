@@ -1273,11 +1273,13 @@ export default {
 
 4. 触发自定义事件：```this.$emit('atguigu',数据)```		
 
-5. 解绑自定义事件```this.$off('atguigu')```
+5. 解绑自定义事件```this.$off('atguigu')```  **当组件被销毁的时候（主动销毁或者切换） 自定义事件自动失效**
 
 6. 组件上也可以绑定原生DOM事件，需要使用```native```修饰符。
 
-7. 注意：通过```this.$refs.xxx.$on('atguigu',回调)```绑定自定义事件时，回调<span style="color:red">要么配置在methods中</span>，<span style="color:red">要么用箭头函数</span>，否则this指向会出问题！
+7. 注意：通过```this.$refs.xxx.$on('atguigu',回调)```绑定自定义事件时，回调<strong style="color:red">要么配置在methods中</strong>，<strong style="color:red">要么用箭头函数</strong >，否则this指向会出问题！
+
+8. 组件通过 `v-on` 绑定事件的时候默认绑定的是自定义事件 ，如果需要绑定原生事件需要加上 native 修饰符 `<Demo @click.native="test"/>`
 
 
 
