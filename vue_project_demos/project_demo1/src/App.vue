@@ -27,13 +27,8 @@ export default {
   },
   data() {
     return {
-      todoList: [
-        {id: '001',name: '锻炼',checked: false},
-        {id: '002',name: '吃饭',checked: true},
-        {id: '003',name: '嫖娼',checked: true},
-        {id: '004',name: '搞点钱',checked: true},
-        {id: '005',name: '谈对象',checked: false},
-      ]
+      // 加载的时候 从 localStorage 中获取数据 如果 localStorage 中没有数据 则加载一个空数组
+      todoList: JSON.parse(window.localStorage.getItem('todoList')) || []
     }
   },
   mounted() {
@@ -62,6 +57,15 @@ export default {
     //  清除所有已完成任务
     clearCompleted(){
       this.todoList = this.todoList.filter(item => item.checked === false)
+    }
+  },
+  watch: {
+    todoList: {
+      deep: true,    //  开启深度监视
+      handler(newVal,oldVal){
+        // console.log('这个数组被修改了: ',newVal,'以前的数据：',oldVal);
+        window.localStorage.setItem('todoList',JSON.stringify(newVal))
+      }
     }
   }
 }
