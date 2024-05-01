@@ -2,8 +2,6 @@
   <div class="todo-wrap">
     <TodoHeader @addTodoObj="addTodoObj"/>
     <TodoList :todoList="todoList"
-              :removeFromList="removeFromList"
-              :checkTodo="checkTodo"
     />
     <TodoFooter :todoList="todoList"
                 @checkAllTodos="checkAllTodos"
@@ -37,7 +35,7 @@ export default {
     addTodoObj(todoObj){
       this.todoList.unshift(todoObj)
     },
-    //  删除
+    //  删除 （单项删除）
     removeFromList(id){
       this.todoList = this.todoList.filter(item => item.id !== id)
     },
