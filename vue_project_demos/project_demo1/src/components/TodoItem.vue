@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import pubsub from "pubsub-js";
 export default {
   name: "TodoItem",
   props: ['todoObj'],
@@ -19,7 +20,8 @@ export default {
     //  在子组件中触发全局事件总线中绑定的事件
     handleDelete(){
       // this.removeFromList(this.todoObj.id)
-      this.$bus.$emit('removeFromList',this.todoObj.id)
+      // this.$bus.$emit('removeFromList',this.todoObj.id)
+      pubsub.publish('removeFromList',this.todoObj.id)
     },
     handleCheck(){
       // this.checkTodo(this.todoObj.id)
