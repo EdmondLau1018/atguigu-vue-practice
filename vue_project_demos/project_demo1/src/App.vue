@@ -34,6 +34,8 @@ export default {
     this.$bus.$on('checkTodo',this.checkTodo)
     // this.$bus.$on('removeFromList',this.removeFromList)
     this.pubId = pubsub.subscribe('removeFromList',this.removeFromList)
+    //  列表修改全局事件总线绑定
+    this.$bus.$on('updateTodo',this.updateTodo)
   },
   methods: {
     addTodoObj(todoObj){
@@ -47,6 +49,12 @@ export default {
     checkTodo(id){
       this.todoList.forEach(item => {
         if (item.id === id) item.checked = !item.checked
+      })
+    },
+    //  更新列表中的某一项
+    updateTodo(id,name){
+      this.todoList.forEach(item => {
+        if (item.id === id) item.name = name
       })
     },
     checkAllTodos(checked){
@@ -113,9 +121,21 @@ body {
   border: 1px solid #bd362f;
 }
 
+.btn-primary {
+  color: #fff;
+  background-color: deepskyblue;
+  border: 1px solid darkred;
+  margin-right: 10px;
+}
+
 .btn-danger:hover {
   color: #fff;
   background-color: #bd362f;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: beige;
 }
 
 .btn:focus {
