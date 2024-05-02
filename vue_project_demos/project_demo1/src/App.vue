@@ -1,19 +1,16 @@
 <template>
   <div>
-    <animation-demo/>
-    <animation-name/>
+    <AnimationGroup/>
   </div>
 </template>
 
 <script>
-import AnimationDemo from "@/components/AnimationDemo";
-import AnimationName from "@/components/AnimationName";
 
+import AnimationGroup from "@/components/AnimationGroup";
 export default {
   name: 'App',
   components: {
-    AnimationDemo,
-    AnimationName
+    AnimationGroup
   },
   data() {
     return {}
