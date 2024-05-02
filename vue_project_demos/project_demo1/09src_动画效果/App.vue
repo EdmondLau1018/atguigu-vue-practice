@@ -1,34 +1,23 @@
 <template>
   <div>
-    <button class="btn btn-danger" @click="getStudentsInfo">学生信息点击就送</button>
+    <AnimationGroup/>
   </div>
 </template>
 
 <script>
 
-import axios from 'axios'
-
+import AnimationGroup from "@/components/AnimationGroup";
 export default {
   name: 'App',
   components: {
+    AnimationGroup
   },
   data() {
     return {}
   },
   mounted() {
   },
-  methods: {
-    getStudentsInfo(){
-      axios.get('http://localhost:8080/students').then(
-          response => {
-            console.log('请求成功了，返回的结果为：',response.data);
-          },
-          error => {
-            console.log('请求失败，原因是：',error.message);
-          }
-      )
-    }
-  },
+  methods: {},
   watch: {}
 }
 </script>

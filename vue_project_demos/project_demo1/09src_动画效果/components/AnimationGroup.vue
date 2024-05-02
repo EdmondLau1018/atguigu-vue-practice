@@ -3,6 +3,7 @@
     <button class="btn btn-danger" @click="isShow = !isShow">进入/离开</button>
     <!--
     transition-group 标签控制 一组页面元素的显示和离开效果
+    transition 相关 标签只是 相当于在元素进入和离开的时候 Vue 给元素新增一个 动画 class
     -->
     <transition-group name="animate__animated animate__bounce"
                       appear
@@ -31,16 +32,5 @@ export default {
 h1 {
   background-color: orange;
   transition: 1s linear;
-}
-
-/*使用过渡效果实现元素的进入和离开*/
-/*进入效果的终点 || 离开的起点*/
-.demo-enter-to, .demo-leave {
-  transform: translateX(0px);
-}
-
-/*离开的起点 || 进入的终点*/
-.demo-leave-to, .demo-enter {
-  transform: translateX(-100%);
 }
 </style>
