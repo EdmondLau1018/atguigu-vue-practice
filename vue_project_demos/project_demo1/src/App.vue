@@ -1,24 +1,27 @@
 <template>
+  <div>
     <animation-demo/>
+    <animation-name/>
+  </div>
 </template>
 
 <script>
 import AnimationDemo from "@/components/AnimationDemo";
+import AnimationName from "@/components/AnimationName";
+
 export default {
   name: 'App',
   components: {
-    AnimationDemo
+    AnimationDemo,
+    AnimationName
   },
   data() {
-    return {
-    }
+    return {}
   },
   mounted() {
   },
-  methods: {
-  },
-  watch: {
-  }
+  methods: {},
+  watch: {}
 }
 </script>
 
