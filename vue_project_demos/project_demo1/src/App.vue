@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     getStudentsInfo(){
-      axios.get('http://localhost:8080/students').then(
+      axios.get('http://localhost:8080/studentsApi/students').then(
           response => {
             console.log('请求成功了，返回的结果为：',response.data);
           },
