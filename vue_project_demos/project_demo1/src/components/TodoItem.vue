@@ -4,7 +4,7 @@
       <input type="checkbox" :checked="todoObj.checked" @click="handleCheck"/>
       <span v-show="!todoObj.isEdit">{{ todoObj.name }}</span>
       <!--当失去焦点的时候视为编辑完成 ，将事件作为参数 事件携带修改后的数据-->
-      <input v-show="todoObj.isEdit" :value="todoObj.name" @blur="editOk(todoObj,$event)"/>
+      <input ref="inputTitle" v-show="todoObj.isEdit" :value="todoObj.name" @blur="editOk(todoObj,$event)"/>
     </label>
     <button class="btn btn-danger" @click="handleDelete">删除</button>
     <button class="btn btn-primary" @click="handleEdit(todoObj)">编辑</button>
@@ -41,10 +41,20 @@ export default {
         console.log('需要新增属性的对象：', todoObj);
         this.$set(todoObj, 'isEdit', true)
       }
+      //  获取焦点  // 通过 ref 的形式获取页面元素
+      this.$nextTick(function () {
+        //  在正常执行的过程中 代码执行到这里的时候 页面元素还没有出现 所以 Vue 不会重新解析模板
+        //  通过 $nextTick 标识下次页面解析的时候执行这个代码 也就是 input 框自动获取焦点
+        this.$refs.inputTitle.focus()
+      })
     },
     editOk(todoObj,e) {
       todoObj.isEdit = false
       console.log(e.target.value);
+      if (e.target.value.trim() == null || e.target.value == '') {
+        alert('输入内容不能为空')
+        return
+      }
       //  通过全局事件总线 向 App 组件传递数据 // 在 App 组件中编写 修改 的回调函数
       this.$bus.$emit('updateTodo',todoObj.id,e.target.value)
     }
