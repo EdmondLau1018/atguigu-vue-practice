@@ -1,88 +1,23 @@
 <template>
-  <div class="todo-wrap">
-    <TodoHeader @addTodoObj="addTodoObj"/>
-    <TodoList :todoList="todoList"/>
-    <TodoFooter :todoList="todoList"
-                @checkAllTodos="checkAllTodos"
-                @clearCompleted="clearCompleted"
-    />
-  </div>
+    <animation-demo/>
 </template>
 
 <script>
-
-import pubsub from "pubsub-js";
-import TodoHeader from "@/components/TodoHeader";
-import TodoList from "@/components/TodoList";
-import TodoFooter from "@/components/TodoFooter";
-
+import AnimationDemo from "@/components/AnimationDemo";
 export default {
   name: 'App',
   components: {
-    TodoHeader,
-    TodoList,
-    TodoFooter
+    AnimationDemo
   },
   data() {
     return {
-      // 加载的时候 从 localStorage 中获取数据 如果 localStorage 中没有数据 则加载一个空数组
-      todoList: JSON.parse(window.localStorage.getItem('todoList')) || []
     }
   },
   mounted() {
-    //  给全局事件总线绑定事件
-    this.$bus.$on('checkTodo',this.checkTodo)
-    // this.$bus.$on('removeFromList',this.removeFromList)
-    this.pubId = pubsub.subscribe('removeFromList',this.removeFromList)
-    //  列表修改全局事件总线绑定
-    this.$bus.$on('updateTodo',this.updateTodo)
   },
   methods: {
-    addTodoObj(todoObj){
-      this.todoList.unshift(todoObj)
-    },
-    //  删除
-    removeFromList(_,id){   //  转换为pubsub _ 用来占位
-      this.todoList = this.todoList.filter(item => item.id !== id)
-    },
-    //  勾选某一项 (取消勾选)
-    checkTodo(id){
-      this.todoList.forEach(item => {
-        if (item.id === id) item.checked = !item.checked
-      })
-    },
-    //  更新列表中的某一项
-    updateTodo(id,name){
-      this.todoList.forEach(item => {
-        if (item.id === id) item.name = name
-      })
-    },
-    checkAllTodos(checked){
-      if (checked) {
-        this.todoList.forEach(item => item.checked = true)
-      } else {
-        this.todoList.forEach(item => item.checked = false)
-      }
-    },
-    //  清除所有已完成任务
-    clearCompleted(){
-      this.todoList = this.todoList.filter(item => item.checked === false)
-    }
-  },
-  beforeDestroy() {
-    //  解绑当前组件绑定在全局事件总线上的事件
-    this.$bus.off('checkTodo')
-    // this.$bus.off('removeFromList')
-    pubsub.unsubscribe(this.pubId)
   },
   watch: {
-    todoList: {
-      deep: true,    //  开启深度监视
-      handler(newVal,oldVal){
-        // console.log('这个数组被修改了: ',newVal,'以前的数据：',oldVal);
-        window.localStorage.setItem('todoList',JSON.stringify(newVal))
-      }
-    }
   }
 }
 </script>
@@ -121,21 +56,9 @@ body {
   border: 1px solid #bd362f;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: deepskyblue;
-  border: 1px solid darkred;
-  margin-right: 10px;
-}
-
 .btn-danger:hover {
   color: #fff;
   background-color: #bd362f;
-}
-
-.btn-primary:hover {
-  color: #fff;
-  background-color: beige;
 }
 
 .btn:focus {

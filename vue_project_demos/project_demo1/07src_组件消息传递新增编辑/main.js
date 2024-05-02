@@ -15,4 +15,8 @@ new Vue({
     render: function (h) {
       return h(App)
     },
+    // 注册全局事件总线 ，将全局事件总线绑定在 Vm 上
+    beforeCreate() {
+        Vue.prototype.$bus = this
+    }
 }).$mount('#app')
