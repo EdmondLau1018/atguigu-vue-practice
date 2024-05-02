@@ -1,41 +1,29 @@
 <template>
   <div class="row">
-    <div class="card">
-      <a href="https://github.com/xxxxxx" target="_blank">
-        <img src="https://cn.vuejs.org/images/logo.svg" style='width: 100px'/>
+    <div class="card" v-for="user in userList" :key="user.login">
+      <a :href="user.html_url" target="_blank">
+        <img :src="user.avatar_url" style='width: 100px'/>
       </a>
-      <p class="card-text">xxxxxx</p>
-    </div>
-    <div class="card">
-      <a href="https://github.com/xxxxxx" target="_blank">
-        <img src="https://cn.vuejs.org/images/logo.svg" style='width: 100px'/>
-      </a>
-      <p class="card-text">xxxxxx</p>
-    </div>
-    <div class="card">
-      <a href="https://github.com/xxxxxx" target="_blank">
-        <img src="https://cn.vuejs.org/images/logo.svg" style='width: 100px'/>
-      </a>
-      <p class="card-text">xxxxxx</p>
-    </div>
-    <div class="card">
-      <a href="https://github.com/xxxxxx" target="_blank">
-        <img src="https://cn.vuejs.org/images/logo.svg" style='width: 100px'/>
-      </a>
-      <p class="card-text">xxxxxx</p>
-    </div>
-    <div class="card">
-      <a href="https://github.com/xxxxxx" target="_blank">
-        <img src="https://cn.vuejs.org/images/logo.svg" style='width: 100px'/>
-      </a>
-      <p class="card-text">xxxxxx</p>
+      <p class="card-text">{{user.login}}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "List"
+  name: "List",
+  data(){
+    return {
+      userList: []
+    }
+  },
+  mounted() {
+    //  通过全局事件总线赋值
+    this.$bus.$on('getUserList',(userList) => {
+      this.userList = userList
+      // console.log('检查 List 组件传值：',this.userList);
+    })
+  }
 }
 </script>
 

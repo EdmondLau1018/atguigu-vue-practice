@@ -12,6 +12,10 @@ Vue.config.productionTip = false
 Vue.config.devtools = true
 //  创建 Vue 实例对象
 new Vue({
+    //  安装全局事件总线
+    beforeCreate() {
+        Vue.prototype.$bus = this
+    },
     render: function (h) {
       return h(App)
     },
