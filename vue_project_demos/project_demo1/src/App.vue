@@ -1,38 +1,32 @@
 <template>
   <div class="container">
-    <category-name>
-      <ul slot="center">
-        <li v-for="(food,index) in foods" :key="index">{{ food }}</li>
-      </ul>
-      <img slot="footer" src="https://s3.ax1x.com/2021/01/16/srJlq0.jpg" alt="">
-    </category-name>
-    <category-name>
-      <!--使用 template 包裹元素可以省去一层 div
-      而且使用 template 可以使用插槽新的写法 v-slot:插槽名称-->
-      <template v-slot:center>
+    <category-area title="游戏">
+      <!-- 插槽的使用者通过 scope 属性接收插槽传递的数据-->
+      <template scope="data">
         <ul>
-          <li v-for="(film,index) in films" :key="index">{{ film }}</li>
+          <li v-for="(game,index) in data.games" :key="index">{{game}}</li>
         </ul>
-        <video src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" controls></video>
+        <h4>{{data.message}}</h4>
       </template>
-      <h4 slot="footer" style="text-align: center">欢迎观影</h4>
-    </category-name>
+    </category-area>
+    <category-area title="游戏">
+      <!-- 插槽的使用者通过 scope 属性接收插槽传递的数据-->
+      <template slot-scope="data">
+        {{data}}
+      </template>
+    </category-area>
   </div>
 </template>
 
 <script>
 import Category from "@/components/Category";
 import CategoryName from "@/components/CategoryName";
+import CategoryArea from "@/components/CategoryArea";
 
 export default {
   name: 'App',
-  components: {Category, CategoryName},
+  components: {CategoryArea, Category, CategoryName},
   data() {
-    return {
-      foods: ['火锅', '烧烤', '小龙虾', '牛排'],
-      games: ['红色警戒', '穿越火线', '劲舞团', '超级玛丽'],
-      films: ['《教父》', '《拆弹专家》', '《你好，李焕英》', '《尚硅谷》']
-    }
   },
   mounted() {
   },
