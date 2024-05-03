@@ -6,6 +6,9 @@
 import Vue from 'vue'
 //  引入管理其他组件的组件 App
 import App from './App.vue'
+//  引入 store
+import store from './store/index'
+
 //  关闭 Vue 生产提示
 Vue.config.productionTip = false
 // 浏览器开启 Vue 调试工具
@@ -19,4 +22,5 @@ new Vue({
     render: function (h) {
       return h(App)
     },
+    store
 }).$mount('#app')
