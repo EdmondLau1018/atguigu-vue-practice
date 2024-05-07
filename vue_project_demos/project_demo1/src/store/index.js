@@ -41,7 +41,9 @@ const mutations = {
 
 //  state 对象用于保存数据
 const state = {
-    sum: 0
+    sum: 0,
+    school: '尚硅谷',
+    subject: '前端技术栈'
 }
 
 // 类似于 vue 中的 computed 属性

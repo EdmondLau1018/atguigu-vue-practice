@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>当前求和为：{{$store.state.sum}}</h1>
-    <h2>当前求和的 20 倍为：{{$store.getters.bigSum}}</h2>
+    <h1>当前求和为：{{sum}}</h1>
+    <h2>当前求和的 20 倍为：{{bigSum}}</h2>
+    <h2>目前跟着 ：{{school}} ,学习 ：{{subject}}</h2>
     <select v-model.number="n">
       <option value="1">1</option>
       <option value="2">2</option>
@@ -15,13 +16,19 @@
 </template>
 
 <script>
+import {mapState,mapGetters} from 'vuex'
 export default {
   name:'Count',
   data() {
     return {
       n:1, //用户选择的数字
-      sum:0 //当前的和
     }
+  },
+  computed:{
+    //  ES6 语法相当于把这个对象中的所有属性展开放在 computed 中
+    ...mapState({sum:'sum',school:'school',subject:'subject'}),
+    //  使用数组的形式 通过 mapGetters 获取 getters 的属性
+    ...mapGetters(['bigSum'])
   },
   methods: {
     increment(){
