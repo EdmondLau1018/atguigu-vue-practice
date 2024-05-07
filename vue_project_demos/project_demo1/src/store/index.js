@@ -44,8 +44,17 @@ const state = {
     sum: 0
 }
 
+// 类似于 vue 中的 computed 属性
+const getters = {
+    bigSum(state){
+        return state.sum * 20
+    }
+}
+
 export default new Vuex.Store({
     actions,
     mutations,
-    state
+    state,
+    // 每次在 store 中定义一个元素都需要暴露出去才能使用
+    getters
 });
