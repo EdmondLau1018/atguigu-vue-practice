@@ -1,5 +1,7 @@
 <template>
   <div>
+    <Person/>
+    <hr>
     <h1>当前求和为：{{sum}}</h1>
     <h2>当前求和的 20 倍为：{{bigSum}}</h2>
     <h2>目前跟着 ：{{school}} ,学习 ：{{subject}}</h2>
@@ -8,17 +10,19 @@
       <option value="2">2</option>
       <option value="3">3</option>
     </select>
-    <button @click="increment">+</button>
-    <button @click="decrement">-</button>
+    <button @click="increment(n)">+</button>
+    <button @click="decrement(n)">-</button>
     <button @click="incrementOdd">当前求和为奇数再加</button>
     <button @click="incrementWait">等一等再加</button>
   </div>
 </template>
 
 <script>
-import {mapState,mapGetters} from 'vuex'
+import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
+import Person from "@/components/Person";
 export default {
   name:'Count',
+  components: {Person},
   data() {
     return {
       n:1, //用户选择的数字
@@ -31,13 +35,14 @@ export default {
     ...mapGetters(['bigSum'])
   },
   methods: {
-    increment(){
-      this.$store.dispatch('add',this.n)
-    },
-    decrement(){
-      //  在没有业务逻辑的情况下可以直接通过 commit 调用 mutations 里的函数
-      this.$store.commit('REDUCE',this.n)
-    },
+    // increment(){
+    //   this.$store.dispatch('add',this.n)
+    // },
+    // decrement(){
+    //   //  在没有业务逻辑的情况下可以直接通过 commit 调用 mutations 里的函数
+    //   this.$store.commit('REDUCE',this.n)
+    // },
+    ...mapMutations({increment:'ADD',decrement:'REDUCE'}),
     incrementOdd(){
       this.$store.dispatch('addOdd',this.n)
     },

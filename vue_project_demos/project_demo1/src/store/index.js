@@ -36,14 +36,19 @@ const mutations = {
     REDUCE(state, value) {
         state.sum -= value
     },
-
+    ADD_HUMAN(state,value){
+        console.log('接收到的参数：',value);
+        state.personList.unshift(value)
+        console.log(state.personList);
+    }
 }
 
 //  state 对象用于保存数据
 const state = {
     sum: 0,
     school: '尚硅谷',
-    subject: '前端技术栈'
+    subject: '前端技术栈',
+    personList: [{id:'10010',name:'张三'}]
 }
 
 // 类似于 vue 中的 computed 属性
