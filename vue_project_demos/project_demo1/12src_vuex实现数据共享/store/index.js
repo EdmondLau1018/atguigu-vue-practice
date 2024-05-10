@@ -31,6 +31,7 @@ const countAbout = {
         ADD(state, value) {
             console.log('mutations收到的参数 state： ', state, '参数值为：', value);
             state.sum += value
+            console.log('加法已经执行了，现在store中 sum 的值为： ',state.sum);
         },
         REDUCE(state, value) {
             state.sum -= value

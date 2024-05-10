@@ -6,14 +6,13 @@
 import Vue from 'vue'
 //  引入管理其他组件的组件 App
 import App from './App.vue'
-import VueRouter from "vue-router";
-//  从自定义 index 文件中引入暴露的 router 对象
-import router from './router'
+//  引入 store
+import store from './store/index'
 
+//  关闭 Vue 生产提示
 Vue.config.productionTip = false
+// 浏览器开启 Vue 调试工具
 Vue.config.devtools = true
-
-Vue.use(VueRouter)
 //  创建 Vue 实例对象
 new Vue({
     //  安装全局事件总线
@@ -23,5 +22,5 @@ new Vue({
     render: function (h) {
       return h(App)
     },
-    router:router
+    store
 }).$mount('#app')

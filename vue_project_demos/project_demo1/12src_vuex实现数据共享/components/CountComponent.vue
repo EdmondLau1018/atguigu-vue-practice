@@ -3,7 +3,7 @@
     <h1>当前求和为：{{sum}}</h1>
     <h2>当前求和的 20 倍为：</h2>
     <h2>目前跟着 ： ,学习 :</h2>
-    <select>
+    <select v-model.number="n">
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapMutations, mapState} from "vuex";
 
 export default {
   name: "CountComponent",
@@ -26,18 +26,7 @@ export default {
     }
   },
   methods: {
-    increment(n){
-
-    },
-    decrement(n){
-
-    },
-    incrementOdd(n){
-
-    },
-    incrementWait(n){
-
-    }
+    ...mapMutations('countAbout',{increment:'ADD'})
   },
   computed: {
     ...mapState('countAbout',['sum'])
