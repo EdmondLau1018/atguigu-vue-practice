@@ -11,7 +11,10 @@
         </li>
       </ul>
     </div>
-    <router-view></router-view>
+    <!--保持对应的路由组件在路由切换的时候不被销毁-->
+    <keep-alive :include="['News','Message']">
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

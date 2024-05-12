@@ -66,6 +66,13 @@ export default {
         }
       })
     }
+  },
+  //  路由组件生命周期钩子函数
+  activated() {
+    console.log('当前路由组件 Message 被激活了');
+  },
+  deactivated() {
+    console.log('当前路由组件 Message 失活了');
   }
 }
 </script>
