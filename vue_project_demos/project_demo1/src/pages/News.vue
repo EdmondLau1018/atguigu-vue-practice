@@ -6,7 +6,7 @@
       <li>news003</li>
     </ul>
     <!--相当于绑定透明度属性-->
-    <h2 :style="{opacity}">测试 vue 路由组件生命周期函数</h2>
+    <h2 :style="{opacity}"><b>测试 vue 路由组件生命周期函数</b></h2>
   </div>
 </template>
 

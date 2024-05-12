@@ -7,18 +7,21 @@ import Message from "../pages/Message";
 import News from "../pages/News";
 import Detail from "@/pages/Detail";
 
-export default new VueRouter({
+const router =  new VueRouter({
     routes: [
         {
+            name: 'about',
             path: '/about',
             component: About
         },
         {
+            name: 'home',
             path: '/home',
             component: Home,
             children: [
                 {
                     name: 'message',
+                    // children 路由不需要
                     path: 'message',
                     component: Message,
                     children: [
@@ -40,6 +43,7 @@ export default new VueRouter({
                     ]
                 },
                 {
+                    name: 'news',
                     path: 'news',
                     component: News
                 }
@@ -47,3 +51,21 @@ export default new VueRouter({
         }
     ]
 })
+
+//  全局前置路由守卫
+router.beforeEach((to,from,next) => {
+    console.log('前置路由守卫：',to,from);
+    if (to.name === 'message' || to.name === 'news') {
+        //  判断权限的业务逻辑
+        if (localStorage.getItem('school') === 'edmond') {
+            next()
+        } else {
+            alert('名称不正确，当前用户不存在这个权限')
+        }
+    }else {
+        next()
+    }
+})
+
+//  将路由规则对外暴露
+export default router
