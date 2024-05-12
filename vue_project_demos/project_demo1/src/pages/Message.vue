@@ -5,7 +5,7 @@
         <!-- 通过 params 方式传参 对应的 router-link 属性中只能使用 name 属性对对应的路由进行标记 -->
         <router-link :to="{
           name: 'detail',
-          params: {
+          query: {
             id: m.id,
             title: m.title
           }
