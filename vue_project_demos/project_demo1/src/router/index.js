@@ -12,18 +12,21 @@ const router =  new VueRouter({
         {
             name: 'about',
             path: '/about',
-            component: About
+            component: About,
+            meta: {isAuth:false,title: '关于'}
         },
         {
             name: 'home',
             path: '/home',
             component: Home,
+            meta: {isAuth: false,title: '主页'},
             children: [
                 {
                     name: 'message',
                     // children 路由不需要
                     path: 'message',
                     component: Message,
+                    meta: {isAuth:true,title: '主页'},
                     children: [
                         {
                             name: 'detail',
@@ -38,14 +41,16 @@ const router =  new VueRouter({
                                     id: $route.query.id,
                                     title: $route.query.title
                                 }
-                            }
+                            },
+                            meta: {isAuth:true,title: '详情页面'},
                         }
                     ]
                 },
                 {
                     name: 'news',
                     path: 'news',
-                    component: News
+                    component: News,
+                    meta: {isAuth:true,title: '新闻'},
                 }
             ]
         }
@@ -55,7 +60,7 @@ const router =  new VueRouter({
 //  全局前置路由守卫
 router.beforeEach((to,from,next) => {
     console.log('前置路由守卫：',to,from);
-    if (to.name === 'message' || to.name === 'news') {
+    if (to.meta.isAuth) {
         //  判断权限的业务逻辑
         if (localStorage.getItem('school') === 'edmond') {
             next()
@@ -65,6 +70,12 @@ router.beforeEach((to,from,next) => {
     }else {
         next()
     }
+})
+
+//  全局后置路由守卫
+router.afterEach((to,from) => {
+    //  更换网页标题
+    document.title = to.meta.title
 })
 
 //  将路由规则对外暴露
