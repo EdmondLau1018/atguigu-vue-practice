@@ -18,11 +18,13 @@ export default new VueRouter({
             component: Home,
             children: [
                 {
+                    name: 'message',
                     path: 'message',
                     component: Message,
                     children: [
                         {
-                            path: 'detail',
+                            name: 'detail',
+                            path: 'detail/:id/:title',
                             component:Detail
                         }
                     ]

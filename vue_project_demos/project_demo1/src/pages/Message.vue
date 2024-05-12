@@ -2,10 +2,10 @@
   <div>
     <ul>
       <li v-for="m in messageList" :key="m.id">
-        <!-- query 方式传参通过的是 路径 url 传参 -->
+        <!-- 通过 params 方式传参 对应的 router-link 属性中只能使用 name 属性对对应的路由进行标记 -->
         <router-link :to="{
-          path: '/home/message/detail',
-          query: {
+          name: 'detail',
+          params: {
             id: m.id,
             title: m.title
           }
